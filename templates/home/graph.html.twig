@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block link %}
+	<link rel="stylesheet" href="{{ asset('css/indexGame.css') }}">
+
+{% endblock %}
+{% block title %}Graphique{% endblock %}
+
+{% block body %}
+
+	<div id="canvas" class="">
+		<div  class="card canvas1 ">
+			<canvas id="line-chart" width="200" height="100"></canvas>
+		</div>
+		<div class="card canvas1 ">
+			<canvas id="line-chart2" width="200" height="100"></canvas>
+		</div>
+
+
+	</div>
+	<div class="card mx-5" id="piechart_3d" ></div>
+
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.js') }}"></script>
+	<script src="{{ asset('js/bootstrap-select.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	<script src="{{ asset('js/chart.js') }}"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+{% endblock %}

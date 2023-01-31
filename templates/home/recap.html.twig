@@ -1,0 +1,322 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/indexHome.css') }}">
+	{{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block title %}Recap{% endblock %}
+
+{% block body %}
+	<form action="{{ path('choose_home') }}" method="post">
+		<label class="text-white fs-6 my-4 mx-5" for="week">Choisir une semaine</label>
+
+		<input type="week" name="weekChoose" id="camp-week"
+		       min="2000" max="2100" required>
+
+		<button name="valid" class="mx-5 btn btn-success">Valider</button>
+
+	</form>
+
+
+	<div  class="d-lg-flex my-5">
+		<div class=" w-50 mx-4 my-5 ">
+
+
+			<p>Ajout de carnets du {{ week_start|date('d/m/Y')}} au {{ week_end|date('d/m/Y')}}</p>
+
+
+			<table class=" table table-primary ">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th class="col" scope="col">Nom du jeu</th>
+					<th scope="col">reférence</th>
+					<th scope="col">nombre de ticket</th>
+					<th scope="col">prix unitaire</th>
+					<th scope="col">prix total</th>
+					<th scope="col">activé</th>
+					<th scope="col">facturé</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% set Total1 = 0  %}
+				{% for book in mybooks[0]|sort((a, b) => a.game.name <=> b.game.name) %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+						<td>{{ book.game.name }}</td>
+						<td>{{ book.reference }}</td>
+						<td>{{ book.game.ticketNumber }}</td>
+						<td>{{ book.game.ticketPrice }}€</td>
+						<td>{{ book.game.totalPrice }}€</td>
+						{% if book.isActivated  %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% if book.isBilled   %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% set Total1 = Total1 + book.game.totalPrice  %}
+
+					</tr>
+				{% endfor%}
+
+				<p>Total = {{ Total1 }}€</p>
+
+
+				</tbody>
+			</table>
+
+
+		</div>
+		<div class="my-5 mx-4 w-50 ">
+			<p>Ajout de carnets de la semaine en cours</p>
+			<table class=" table table-primary ">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th class="col" scope="col">Nom du jeu</th>
+					<th scope="col">reférence</th>
+					<th scope="col">nombre de ticket</th>
+					<th scope="col">prix unitaire</th>
+					<th scope="col">prix total</th>
+					<th scope="col">activé</th>
+					<th scope="col">facturé</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% set Total2 = 0  %}
+				{% for book in mybooks[3]|sort((a, b) => a.game.name <=> b.game.name) %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+						<td>{{ book.game.name }}</td>
+						<td>{{ book.reference }}</td>
+						<td>{{ book.game.ticketNumber }}</td>
+						<td>{{ book.game.ticketPrice }}€</td>
+						<td>{{ book.game.totalPrice }}€</td>
+						{% if book.isActivated  %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% if book.isBilled   %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% set Total2 = Total2 + book.game.totalPrice  %}
+					</tr>
+				{% endfor%}
+
+				<p>Total = {{ Total2 }}€</p>
+				</tbody>
+			</table>		</div>
+
+	</div>
+
+	<div  class="d-lg-flex my-5">
+		<div class=" w-50 mx-4 my-5 ">
+			<p>Activation de carnets du {{ week_start|date('d/m/Y')}} au {{ week_end|date('d/m/Y')}}</p>
+			<table class=" table table-primary ">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th class="col" scope="col">Nom du jeu</th>
+					<th scope="col">reférence</th>
+					<th scope="col">nombre de ticket</th>
+					<th scope="col">prix unitaire</th>
+					<th scope="col">prix total</th>
+					<th scope="col">activé</th>
+					<th scope="col">facturé</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% set Total3 = 0  %}
+				{% for book in mybooks[1]|sort((a, b) => a.game.name <=> b.game.name) %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+						<td>{{ book.game.name }}</td>
+						<td>{{ book.reference }}</td>
+						<td>{{ book.game.ticketNumber }}</td>
+						<td>{{ book.game.ticketPrice }}€</td>
+						<td>{{ book.game.totalPrice }}€</td>
+						{% if book.isActivated  %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% if book.isBilled   %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% set Total3 = Total3 + book.game.totalPrice  %}
+					</tr>
+				{% endfor%}
+				<p>Total = {{ Total3 }}€</p>
+				</tbody>
+			</table>
+
+		</div>
+
+		<div class="my-5 mx-4 w-50 ">
+			<p>Activation de carnets de la semaine en cours</p>
+			<table class=" table table-primary ">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th class="col" scope="col">Nom du jeu</th>
+					<th scope="col">reférence</th>
+					<th scope="col">nombre de ticket</th>
+					<th scope="col">prix unitaire</th>
+					<th scope="col">prix total</th>
+					<th scope="col">activé</th>
+					<th scope="col">facturé</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% set Total4 = 0  %}
+				{% for book in mybooks[4]|sort((a, b) => a.game.name <=> b.game.name) %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+						<td>{{ book.game.name }}</td>
+						<td>{{ book.reference }}</td>
+						<td>{{ book.game.ticketNumber }}</td>
+						<td>{{ book.game.ticketPrice }}€</td>
+						<td>{{ book.game.totalPrice }}€</td>
+						{% if book.isActivated  %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% if book.isBilled   %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% set Total4 = Total4 + book.game.totalPrice  %}
+
+					</tr>
+				{% endfor%}
+				<p>Total = {{ Total4 }}€</p>
+				</tbody>
+			</table>		</div>
+
+	</div>
+
+	<div  class="d-lg-flex my-5">
+		<div class=" w-50 mx-4 my-5 ">
+			<p>Facturation de carnets du {{ week_start|date('d/m/Y')}} au {{ week_end|date('d/m/Y')}}</p>
+			<table class=" table table-primary ">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th class="col" scope="col">Nom du jeu</th>
+					<th scope="col">reférence</th>
+					<th scope="col">nombre de ticket</th>
+					<th scope="col">prix unitaire</th>
+					<th scope="col">prix total</th>
+					<th scope="col">activé</th>
+					<th scope="col">facturé</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% set Total5 = 0  %}
+
+				{% for book in mybooks[2]|sort((a, b) => a.game.name <=> b.game.name) %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+						<td>{{ book.game.name }}</td>
+						<td>{{ book.reference }}</td>
+						<td>{{ book.game.ticketNumber }}</td>
+						<td>{{ book.game.ticketPrice }}€</td>
+						<td>{{ book.game.totalPrice }}€</td>
+						{% if book.isActivated  %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% if book.isBilled   %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% set Total5 = Total5 + book.game.totalPrice  %}
+					</tr>
+				{% endfor%}
+				<p>Total = {{ Total5 }}€</p>
+
+				</tbody>
+			</table>
+
+		</div>
+
+		<div class="my-5 mx-4 w-50 ">
+			<p>Facturation de carnets de la semaine en cours</p>
+			<table class=" table table-primary ">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th class="col" scope="col">Nom du jeu</th>
+					<th scope="col">reférence</th>
+					<th scope="col">nombre de ticket</th>
+					<th scope="col">prix unitaire</th>
+					<th scope="col">prix total</th>
+					<th scope="col">activé</th>
+					<th scope="col">facturé</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% set Total6 = 0  %}
+
+				{% for book in mybooks[5]|sort((a, b) => a.game.name <=> b.game.name) %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+						<td>{{ book.game.name }}</td>
+						<td>{{ book.reference }}</td>
+						<td>{{ book.game.ticketNumber }}</td>
+						<td>{{ book.game.ticketPrice }}€</td>
+						<td>{{ book.game.totalPrice }}€</td>
+						{% if book.isActivated  %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% if book.isBilled   %}
+							<td>oui</td>
+						{% else  %}
+							<td>non</td>
+						{% endif  %}
+
+						{% set Total6 = Total6 + book.game.totalPrice  %}
+
+
+					</tr>
+				{% endfor%}
+				<p>Total = {{ Total6 }}€</p>
+				</tbody>
+			</table>		</div>
+
+	</div>
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+{% block link %}
+	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/bootstrap-select.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/addGame.css') }}">
+
+{% endblock %}
+{% block title %}nouveau carnet{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block body %}
+
+	{% for message in app.flashes('success') %}
+
+		<div class="alert alert-success text-center">{{ message }}</div>
+
+	{% endfor %}
+	{% for message in app.flashes('warning') %}
+
+		<div class="alert alert-danger text-center">{{ message }}</div>
+
+	{% endfor %}
+
+	<div class="mt-5 h3 font-weight-bold text-white text-center mb-3">Liste des jeux ajoutés</div>
+
+	<div id="table" class="mx-5 px-3 my-5">
+		<div class=" card w-50 mx-5">
+			<table class=" table table-primary ">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th class="col-3" scope="col">Nom du jeu</th>
+					<th class="col-3" scope="col">Code jeu</th>
+					<th scope="col-3">Date d'ajout</th>
+					<th scope="col-3">Remarque</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% for game in games_added %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+						<td>{{ game.name }}</td>
+						<td>{{ game.codeFdj }}</td>
+						<td>{{ game.addDate|date('d/m/Y') }}</td>
+						<td class="text-danger fw-bold">Mettre à jour le jeux (nombre de ticket, prix etc) !</td>
+
+					</tr>
+				{% endfor%}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+
+
+	<div class="mt-5 h3 font-weight-bold text-white text-center mb-3">Liste des carnets ajoutés</div>
+
+	<div id="table" class="mx-5 px-3 my-5">
+		<div class=" card w-50 mx-5">
+		<table class=" table table-primary ">
+			<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th class="col-3" scope="col">Nom du jeu</th>
+				<th class="col-3" scope="col">Code jeu</th>
+				<th scope="col-3">référence</th>
+				<th scope="col-3">Date d'ajout</th>
+
+			</tr>
+			</thead>
+			<tbody>
+			{% for book in books_added %}
+				<tr>
+					<th scope="row">{{ loop.index }}</th>
+					<td>{{ book.game.name }}</td>
+					<td>{{ book.game.codeFdj }}</td>
+					<td>{{ book.reference }}</td>
+					<td>{{ book.addingDate|date('d/m/Y') }}</td>
+
+				</tr>
+			{% endfor%}
+			</tbody>
+		</table>
+		</div>
+	</div>
+
+
+
+
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.js') }}"></script>
+	<script src="{{ asset('js/bootstrap-select.js') }}"></script>
+	<script src="{{ asset('js/selectGame.js') }}"></script>
+
+
+{% endblock %}

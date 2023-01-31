@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block link %}
+	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/bootstrap-select.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/addGame.css') }}">
+
+{% endblock %}
+{% block title %}nouveau carnet{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block body %}
+
+	{% for message in app.flashes('success') %}
+
+		<div class="alert alert-success text-center">{{ message }}</div>
+
+	{% endfor %}
+	{% for message in app.flashes('warning') %}
+
+		<div class="alert alert-danger text-center">{{ message }}</div>
+
+	{% endfor %}
+
+	<div class="mt-5 h3 font-weight-bold text-white text-center mb-3">Ajouter un nouveau carnet</div>
+
+
+	{{ include('book/form_edit.html.twig') }}
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.js') }}"></script>
+	<script src="{{ asset('js/bootstrap-select.js') }}"></script>
+	<script src="{{ asset('js/selectGame.js') }}"></script>
+
+
+{% endblock %}

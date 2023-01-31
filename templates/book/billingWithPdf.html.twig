@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+{% block link %}
+	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/bootstrap-select.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/addGame.css') }}">
+
+{% endblock %}
+{% block title %}nouveau carnet{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block body %}
+
+	{% for message in app.flashes('success') %}
+
+		<div class="alert alert-success text-center">{{ message }}</div>
+
+	{% endfor %}
+	{% for message in app.flashes('warning') %}
+
+		<div class="alert alert-danger text-center">{{ message }}</div>
+
+	{% endfor %}
+
+	<div class="mt-5 h3 font-weight-bold text-white text-center mb-3">Voulez-vous facturer cette liste extraite de votre pdf ?</div>
+
+<div id="table" class=" mx-5 px-3 my-5 rounded-3 d-flex">
+	<div class=" card w-50 mx-5">
+	<table class=" table table-primary ">
+		<thead>
+		<tr>
+			<th scope="">Nom du jeu</th>
+			<th class="" scope="col">références</th>
+			<th class="" scope="col">quantité</th>
+
+
+
+		</tr>
+		</thead>
+		<tbody>
+		{% set count = 0 %}
+		{% set total = 0 %}
+		{% for game in games %}
+			<tr>
+
+					<th>{{ game.codeFdj }}-{{ game.name }}</th>
+				<th>
+				{% for book in game.books %}
+					{% if book.isCheckBilling == true %}
+						{{ book.reference }}
+						{% set count = count +1  %}
+					{% endif %}
+				{% endfor %}
+				</th>
+				<th class="text-center">
+					{{ count }}
+				</th>
+			</tr>
+			{% set total = total + count %}
+			{% set count = 0 %}
+		{% endfor %}
+
+		<tr>
+			<th colspan="3" class="text-center fw-bold h4"> total : {{ total }} carnets</th>
+		</tr>
+
+
+		</tbody>
+	</table>
+	</div>
+
+	<div>
+		<form action="{{ path('new_invoice') }}" method="post">
+
+			<label class="text-white" for="invoiceDate">Choisir la date de la Facture</label>
+		<input name=invoiceDate type="date" class="form-control ">
+		<input name="fileName" type="hidden" value="{{ fileName }}">
+
+			<button name="addInvoice" type="submit" class="mx-5 my-3 btn btn-success">Valider</button>
+		</form>
+	</div>
+</div>
+
+
+
+
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.js') }}"></script>
+	<script src="{{ asset('js/bootstrap-select.js') }}"></script>
+	<script src="{{ asset('js/selectGame.js') }}"></script>
+
+
+{% endblock %}

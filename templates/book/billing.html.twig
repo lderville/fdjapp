@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+{% block link %}
+	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/bootstrap-select.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/addGame.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/indexGame.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
+
+{% endblock %}
+{% block title %}Facturation{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block body %}
+
+	{% for message in app.flashes('success') %}
+
+		<div class="alert alert-success text-center">{{ message }}</div>
+
+	{% endfor %}
+	{% for message in app.flashes('warning') %}
+
+		<div class="alert alert-danger text-center">{{ message }}</div>
+
+	{% endfor %}
+
+
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary mt-5 mx-5" data-bs-toggle="modal" data-bs-target="#addbilling">
+		Ajouter une facture
+	</button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="addbilling" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ajouter une facture</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				{{ form_start(form) }}
+				<div class="modal-body">
+					{{ form_widget(form.newInvoice) }}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+					<button name="newInvoice" type="submit" class="btn btn-primary">Ajouter</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="mt-5 h3 font-weight-bold text-white text-center mb-3">Facturation</div>
+	<div class="mt-5 h3 font-weight-bold text-white text-center mb-3">Valeur théorique des carnets activés (Non facturés): {{ books_price}} € </div>
+
+
+	<div class="wrapper">
+
+		<select  id="book_game" class=" selectpicker "  aria-label="Default select example" data-live-search="true"
+		        onchange=getGameValue()>
+			<option  selected>Chosir un Jeu</option>
+
+			{% for game in games %}
+				<option value="{{ game.id }}">{{ game.codeFdj }} - {{ game.name }}</option>
+			{%  endfor %}
+		</select>
+
+		<div class="mt-5 mb-2 text-white d-flex align-items-center">
+			<p id="name"></p>
+		</div>
+		<div class="my-2 text-white d-flex align-items-center">
+			<p id="ref"></p>
+		</div>
+		<div class="my-2 text-white d-flex align-items-center">
+			<p id="ticketnumber"></p>
+		</div>
+		<div class="my-2 text-white d-flex align-items-center">
+			<p id="ticketPrice"></p>
+		</div>
+		<div class=" my-2 text-white d-flex align-items-center">
+			<p id="totalPrice"></p>
+		</div>
+	</div>
+
+	<p id="totalBooks" class="text-center"></p>
+	<p id="numberBooks" class="text-center"></p>
+	<div id="tableCreation" class=" my-5">
+
+		<div id="export" class=" mx-5 my-2"></div>
+		<table id="data-table" class="my-2 table table-primary ">
+			<thead>
+			<tr>
+
+				<th class="col" scope="col">Réference</th>
+				<th scope="col">date de modification</th>
+				<th scope="col">date de réception</th>
+				<th scope="col">date d'activation</th>
+				<th scope="col">action</th>
+
+			</tr>
+			</thead>
+			<tbody id="tableAddbill">
+			</tbody>
+		</table>
+
+	</div>
+
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.js') }}"></script>
+	<script src="{{ asset('js/bootstrap-select.js') }}"></script>
+	<script src="{{ asset('js/pdfmake.min.js') }}"></script>
+	<script src="{{ asset('js/vfs_fonts.js') }}"></script>
+	<script src="{{ asset('js/datatables.min.js') }}"></script>
+	<script src="{{ asset('js/billing.js') }}"></script>
+
+
+{% endblock %}

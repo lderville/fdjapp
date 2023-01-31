@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+{% block link %}
+	<link rel="stylesheet" href="{{ asset('css/indexGame.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
+{% endblock %}
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+<div class=" my-3 mx-5">
+		<div id="export" class=" mx-5 my-2"></div>
+	<table id="data-table" class="table table-bordered table-primary table-striped ">
+		<thead>
+		<tr>
+			<th scope="col">Nom du jeu</th>
+			<th scope="col">nombre vendu non facturé</th>
+			<th scope="col">nombre vendu et facturé</th>
+			<th scope="col">Actif non facturé</th>
+			<th scope="col">Prix Total facturé</th>
+
+		</tr>
+		</thead>
+		<tbody>
+
+		{% set totalnumberBilled = 0 %}
+		{% set totalnumberNotBilled = 0 %}
+		{% set totalpriceNotBilled = 0 %}
+		{% set totalpriceBilled = 0 %}
+
+
+		{% for game in games|sort((a, b) => a.codeFdj <=> b.codeFdj)  %}
+
+
+		<tr>
+			<th scope="row">{{ game.codeFdj}} - {{ game.name }} </th>
+
+
+			{% set numberNotBilled = 0  %}
+			{% set priceNotBilled = 0  %}
+			{% set numberBilled = 0  %}
+			{% set priceBilled = 0  %}
+
+			{% for book in game.books %}
+					{% if book.isActivated == true and book.isBilled == false  %}
+						{% set numberNotBilled = numberNotBilled +1  %}
+						{% set priceNotBilled = numberNotBilled * game.totalPrice  %}
+					{% endif %}
+					{% if book.isBilled == true %}
+						{% set numberBilled = numberBilled +1  %}
+						{% set priceBilled = numberBilled * game.totalPrice  %}
+					{% endif %}
+
+			{% endfor %}
+				<td>{{ numberNotBilled }}</td>
+				<td>{{ numberBilled }}</td>
+				<td>{{ priceNotBilled }}€</td>
+				<td>{{ priceBilled }}€</td>
+		</tr>
+
+			{% set totalnumberBilled = totalnumberBilled + numberBilled %}
+			{% set totalnumberNotBilled = totalnumberNotBilled + numberNotBilled %}
+			{% set totalpriceNotBilled = totalpriceNotBilled + priceNotBilled %}
+			{% set totalpriceBilled = totalpriceBilled + priceBilled %}
+
+		{% endfor %}
+
+		<td class="h1 table-danger fw-bold">Total</td>
+		<td class="h1 table-danger fw-bold">{{ totalnumberNotBilled }}</td>
+		<td class="h1 table-danger fw-bold">{{ totalnumberBilled }}</td>
+		<td class="h1 table-danger fw-bold">{{ totalpriceNotBilled }}€</td>
+		<td class="h1 table-danger fw-bold">{{ totalpriceBilled }}€</td>
+
+		</tbody>
+		<tfoot>
+		<tr>
+			<th scope="col">Nom du jeu</th>
+			<th scope="col">nombre vendu non facturé</th>
+			<th scope="col">nombre vendu et facturé</th>
+			<th scope="col">Actif non facturé</th>
+			<th scope="col">Prix Total facturé</th>
+
+		</tr>
+		</tfoot>
+	</table>
+</div>
+
+	<script src="{{ asset('js/pdfmake.min.js') }}"></script>
+	<script src="{{ asset('js/vfs_fonts.js') }}"></script>
+	<script src="{{ asset('js/datatables.min.js') }}"></script>
+	<script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}

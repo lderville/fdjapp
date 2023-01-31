@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block link %}{% endblock %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="icon" href="{{ asset('icon/faviconFDJ.png') }}"/>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+
+    {% endblock %}
+</head>
+
+<body>
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+<nav class=" navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_home') }}">
+            <img class="logofdj" src="{{ asset('icon/LOGO_FDJ.png') }}" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class=" hover-underline-animation nav-link active" aria-current="page" href="{{ path('app_home') }}"><h6>Accueil</h6></a>
+                <a class=" hover-underline-animation nav-link active" href="{{path('new_book')}}"><h6> Ajouter carnet</h6></a>
+                <a class=" hover-underline-animation nav-link active" href="{{ path('activation') }}"><h6>Activation</h6></a>
+                <a class=" hover-underline-animation nav-link active " href="{{ path('billing') }}"><h6>Facturation</h6></a>
+                <a class=" hover-underline-animation nav-link active" href="{{ path('game_index') }}"><h6>Type de carnet</h6></a>
+                <a class=" hover-underline-animation nav-link active" href="{{ path('archive_home') }}"><h6>Archive</h6></a>
+                <a class=" hover-underline-animation nav-link active" aria-current="page" href="{{ path('app_recap') }}"><h6>Recapitulatif</h6></a>
+                <a class=" hover-underline-animation nav-link active" aria-current="page" href="{{ path('app_graph') }}"><h6>Graphiques</h6></a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{% block body %}{% endblock %}
+
+
+</body>
+</html>

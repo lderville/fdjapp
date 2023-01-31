@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #000428, #004683);
+    margin: 0;
+}
+td a {
+    text-decoration: none;
+}
+
+#info{
+    fill: #000428;
+    width: 30px;
+}
+#modif{
+    fill: #144f04;
+    width: 30px;
+}
+#delet{
+    fill: #930a0a;
+    width: 25px;
+}
+
+#info:hover{
+    fill: #0c1fe1;
+    width: 30px;
+}
+#modif:hover{
+    fill: #2dbe06;
+    width: 30px;
+}
+#delet:hover{
+    fill: #f50e0e;
+    width: 25px;
+}
+
+#tableCreation
+{
+    margin: 50px;!important;
+    font-size: 20px;!important;
+}
+.card {
+    background-color: #cfe2ff !important;
+    margin: 50px;!important;
+    padding-top: 20px;
+}
+
+.dataTables_info {
+    color: white;!important;
+}
+
+label {
+    color: white;!important;
+}
+
+#data-table_filter label input {
+    width: 60% !important;
+    margin-right: 60px;
+}
+
+
+
+.canvas1 {
+    width: 40%;
+}
+
+#canvas {
+    display: flex;
+}
+
+#piechart_3d {
+    margin: 0 0 50px;
+
+}
+
+@media screen and (max-width: 1200px) {
+    #canvas{
+        display: unset;
+    }
+    .canvas1 {
+        width: 85%;
+    }
+}
+
+
+

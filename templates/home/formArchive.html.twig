@@ -1,0 +1,49 @@
+{{ form_start(form) }}
+<div class="wrapper">
+
+	<div class="form-group d-flex align-items-center">
+		{{ form_row(form.reference) }}
+	</div>
+
+	<div class=" d-flex align-items-center">
+		{{ form_row(form.game) }}
+	</div>
+	<div class=" d-flex align-items-center my-4">
+
+		{{ form_row(form.modificationdate) }}
+	</div>
+	<div class="d-flex" >
+		<div class="mx-3">
+			<div class="mb-2">
+				<label class="option">Activé
+					{{ form_widget(form.isActivated)}}
+					<span class="checkmark"></span>
+				</label>
+			</div>
+			<div class="mb-2">
+				<label class="option">Non Activé
+					{{ form_widget(form.isNotActivated)}}
+					<span class="checkmark"></span>
+				</label>
+			</div>
+		</div>
+		<div class="mx-3">
+			<div class="mb-2">
+				<label class="option">Facturé
+					{{ form_widget(form.isBilled)}}
+					<span class="checkmark"></span>
+				</label>
+			</div>
+			<div class="mb-2">
+				<label class="option">Non Facturé
+					{{ form_widget(form.isNotBilled)}}
+					<span class="checkmark"></span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="text-center my-3">
+		<button type="submit" class="text-center btn btn-primary mb-3 ">Rechercher</button>
+	</div>
+</div>
+{{ form_end(form) }}

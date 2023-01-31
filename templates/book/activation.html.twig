@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+{% block link %}
+	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/bootstrap-select.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/addGame.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/indexGame.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
+
+{% endblock %}
+{% block title %}Activation{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block body %}
+
+	{% for message in app.flashes('success') %}
+
+		<div class="alert alert-success text-center">{{ message }}</div>
+
+	{% endfor %}
+	{% for message in app.flashes('warning') %}
+
+		<div class="alert alert-danger text-center">{{ message }}</div>
+
+	{% endfor %}
+
+	<div class="mt-5 h3 font-weight-bold text-white text-center mb-3">Activation</div>
+	<div class="mt-5 h3 font-weight-bold text-white text-center mb-3">Valeur théorique du stock : {{ books_price}} € </div>
+
+
+
+	<div class="wrapper">
+
+		<select id="book_game" class=" selectpicker "  aria-label="Default select example" data-live-search="true"
+		onchange=getGameValue()>
+			<option selected>Chosir un Jeu</option>
+
+			{% for game in games %}
+				<option value="{{ game.id }}">{{ game.codeFdj }} - {{ game.name }}</option>
+			{%  endfor %}
+		</select>
+
+		<div class="mt-5 mb-2 text-white d-flex align-items-center">
+			<p id="name"></p>
+		</div>
+		<div class="my-2 text-white d-flex align-items-center">
+			<p id="ref"></p>
+		</div>
+		<div class="my-2 text-white d-flex align-items-center">
+			<p id="ticketnumber"></p>
+		</div>
+		<div class="my-2 text-white d-flex align-items-center">
+			<p id="ticketPrice"></p>
+		</div>
+		<div class=" my-2 text-white d-flex align-items-center">
+			<p id="totalPrice"></p>
+		</div>
+	</div>
+
+
+	<p id="totalBooks" class="text-center"></p>
+	<p id="numberBooks" class="text-center"></p>
+	<div id="tableCreation" class=" mx-5 my-5">
+
+		<div id="export" class=" mx-5 my-2"></div>
+		<table id="data-table" class="my-2 table table-primary table-bordered ">
+			<thead>
+			<tr>
+				<th class="col" scope="col">Réference</th>
+				<th scope="col">date de modification</th>
+				<th scope="col">date de réception</th>
+				<th scope="col">action</th>
+
+			</tr>
+			</thead>
+			<tbody id="tableAdd">
+{#			<a href=""></a>#}
+			</tbody>
+		</table>
+
+	</div>
+
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.js') }}"></script>
+	<script src="{{ asset('js/bootstrap-select.js') }}"></script>
+	<script src="{{ asset('js/activation.js') }}"></script>
+	<script src="{{ asset('js/pdfmake.min.js') }}"></script>
+	<script src="{{ asset('js/vfs_fonts.js') }}"></script>
+	<script src="{{ asset('js/datatables.min.js') }}"></script>
+
+
+
+{% endblock %}
